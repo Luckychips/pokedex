@@ -2,7 +2,7 @@
 </script>
 
 <main>
-    <div>page home</div>
+  <div class="container mx-auto">page home</div>
 </main>
 
 <style>

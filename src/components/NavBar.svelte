@@ -3,7 +3,7 @@
   import active from 'svelte-spa-router/active';
 </script>
 
-<header>
+<header class="container bg-blue-800 text-white">
   <a href="/" use:link use:active> Home </a>
   <a href="/pokemons" use:link use:active> Pokemons </a>
   <a href="/moves" use:link use:active> Moves </a>
