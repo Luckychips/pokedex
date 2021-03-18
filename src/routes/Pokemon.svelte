@@ -1,7 +1,10 @@
 <script>
   import { onMount } from 'svelte';
+  import DetailPokemon from '../components/DetailPokemon.svelte';
+  import LoadingIndicator from '../components/LoadingIndicator.svelte';
 
   let pokemons = [];
+  let pokemon = null;
 
   onMount(async () => {
     try {
@@ -16,26 +19,39 @@
   });
 
   onMount(async () => {
-    console.log('on mount...');
+    await getPokemon('1');
   });
 
-  function getPokemon() {
-    console.log('get pokemon');
+  async function getPokemon(name) {
+    pokemon = null;
+    setTimeout(async () => {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        pokemon = await response.json();
+        console.log(pokemon);
+      } catch (e) {
+        console.log(e);
+      }
+    }, 500);
   }
 </script>
 
-<main class="container">
-  <div class="side-bar inline-block overflow-y-scroll">
+<main class="container flex">
+  <div class="side-bar overflow-y-scroll">
     <ul>
-      {#each pokemons as pokemon}
-        <li on:click={getPokemon}>
+      {#each pokemons as pokemon, i}
+        <li on:click={e => getPokemon(pokemon.name)}>
           <label>{pokemon.name}</label>
         </li>
       {/each}
     </ul>
   </div>
-  <div class="content inline-block">
-
+  <div class="content">
+    {#if pokemon}
+      <DetailPokemon pokemon={pokemon} />
+    {:else}
+      <LoadingIndicator />
+    {/if}
   </div>
 </main>
 
