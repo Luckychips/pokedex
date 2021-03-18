@@ -5,7 +5,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100&offset=200');
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
       const json = await response.json();
       if (json.hasOwnProperty('results')) {
         pokemons = json.results;
@@ -14,24 +14,47 @@
       console.log(e);
     }
   });
+
+  onMount(async () => {
+    console.log('on mount...');
+  });
+
+  function getPokemon() {
+    console.log('get pokemon');
+  }
 </script>
 
-<main>
-  <ul>
-    {#each pokemons as pokemon}
-      <li>
-        <label>{pokemon.name}</label>
-      </li>
-    {/each}
-  </ul>
+<main class="container">
+  <div class="side-bar inline-block overflow-y-scroll">
+    <ul>
+      {#each pokemons as pokemon}
+        <li on:click={getPokemon}>
+          <label>{pokemon.name}</label>
+        </li>
+      {/each}
+    </ul>
+  </div>
+  <div class="content inline-block">
+
+  </div>
 </main>
 
-<style>
+<style type="text/scss">
   main {
+    .side-bar {
+      width: 250px;
+      height: calc(100vh - 45px);
+    }
+
+    .content {
+      width: calc(100% - 255px);
+      height: calc(100vh - 45px);
+    }
   }
 
   ul {
-    list-style: none;
-    padding-bottom: 30px;
+    li {
+      padding: 10px;
+    }
   }
 </style>

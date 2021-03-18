@@ -3,8 +3,7 @@
   import active from 'svelte-spa-router/active';
 </script>
 
-<header class="container bg-blue-800 text-white">
-  <a href="/" use:link use:active> Home </a>
+<header class="bg-blue-600">
   <a href="/pokemons" use:link use:active> Pokemons </a>
   <a href="/moves" use:link use:active> Moves </a>
   <a href="/machines" use:link use:active> Machines </a>
@@ -13,8 +12,22 @@
 </header>
 
 <style>
+  header {
+    max-height: 45px;
+    padding: 10px;
+  }
+
+  header a {
+    font-size: 1.1rem;
+    color: white;
+    margin-right: 5px;
+  }
+
   :global(header a.active) {
     font-weight: bold;
-    text-decoration: underline;
+  }
+
+  :global(header a:hover) {
+    text-decoration: none;
   }
 </style>
