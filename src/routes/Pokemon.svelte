@@ -51,15 +51,15 @@
   <div class="side-bar overflow-y-scroll">
     <ul>
       {#each pokemons as pokemon, i}
-        <li on:click={e => getPokemon(pokemon.name)}>
-          <label>{getNumberFromDex(i+1)} {pokemon.name}</label>
+        <li on:click={(e) => getPokemon(pokemon.name)}>
+          <label>{getNumberFromDex(i + 1)} {pokemon.name}</label>
         </li>
       {/each}
     </ul>
   </div>
   <div class="content">
     {#if pokemon}
-      <DetailPokemon pokemon={pokemon} />
+      <DetailPokemon {pokemon} />
     {:else}
       <LoadingIndicator />
     {/if}
