@@ -8,7 +8,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100');
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=400');
       const json = await response.json();
       if (json.hasOwnProperty('results')) {
         pokemons = json.results;
@@ -34,6 +34,17 @@
       }
     }, 500);
   }
+
+  function getNumberFromDex(number) {
+    let targetNumber = number;
+    if (number < 10) {
+      targetNumber = '00' + targetNumber;
+    } else if (number >= 10 && number < 100) {
+      targetNumber = '0' + targetNumber;
+    }
+
+    return targetNumber;
+  }
 </script>
 
 <main class="container flex">
@@ -41,7 +52,7 @@
     <ul>
       {#each pokemons as pokemon, i}
         <li on:click={e => getPokemon(pokemon.name)}>
-          <label>{pokemon.name}</label>
+          <label>{getNumberFromDex(i+1)} {pokemon.name}</label>
         </li>
       {/each}
     </ul>
