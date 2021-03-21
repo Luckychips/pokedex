@@ -3,9 +3,11 @@
   import ApexCharts from 'apexcharts';
   import Icon from 'svelte-awesome';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+  import PopUp from '../components/PopUp.svelte';
 
   export let pokemon;
 
+  let isHidePopUp = true;
   let isLoading = true;
   let isLoadingSkillBox = true;
   let skills = null;
@@ -135,6 +137,7 @@
   }
 
   async function getAbilityContent(url) {
+    isHidePopUp = !isHidePopUp;
     try {
       const response = await fetch(url);
       // pokemon = await response.json();
@@ -145,6 +148,7 @@
   }
 
   async function getSkillContent(url) {
+    isHidePopUp = !isHidePopUp;
     try {
       const response = await fetch(url);
       // pokemon = await response.json();
@@ -156,6 +160,9 @@
 </script>
 
 <section class="">
+  {#if !isHidePopUp}
+    <PopUp />
+  {/if}
   <div class="pokemon-profile-header">
     <div class="thumbnail-downloading border-double border-4 border-green-600 rounded-xl">
       {#if isLoading}
@@ -208,9 +215,22 @@
     {#if isLoadingSkillBox}
       <Icon class="animate-spin text-blue-600 block" data={faSpinner} scale="2" />
     {:else}
-      {#each skills as value}
-        <div class="skill-name" on:click={(e) => getSkillContent(value.skill.url)}>{value.info.level_learned_at} : {value.skill.name}</div>
-      {/each}
+      <table class="skill-table-set table-auto">
+        <thead>
+        <tr>
+          <th class="w-1/4">-</th>
+          <th class="w-3/4">-</th>
+        </tr>
+        </thead>
+        <tbody>
+          {#each skills as value}
+            <tr class="skill-name" on:click={(e) => getSkillContent(value.skill.url)}>
+              <td>{value.info.level_learned_at}</td>
+              <td>{value.skill.name}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
     {/if}
   </div>
 </section>
@@ -333,8 +353,22 @@
   }
 
   .pokemon-skills {
+    width: 300px;
+
     .title {
       margin-top: 50px;
+    }
+
+    .skill-table-set {
+      width: 100%;
+      border: 1px solid;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 50px;
+
+      td {
+        border: 1px solid;
+      }
     }
 
     .skill-name {
