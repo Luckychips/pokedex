@@ -7,6 +7,8 @@
   export let pokemon;
 
   let isLoading = true;
+  let isLoadingSkillBox = true;
+  let skills = null;
 
   onMount(() => {
     setTimeout(() => {
@@ -14,6 +16,7 @@
     }, 1000);
 
     createBaseStatChart();
+    createLevelMoves();
   });
 
   function createBaseStatChart() {
@@ -96,11 +99,56 @@
     }
   }
 
+  function createLevelMoves() {
+    if (pokemon.moves) {
+      const filtered = [];
+      for (let i = 0; i < pokemon.moves.length; i++) {
+        for (let j = 0; j < pokemon.moves[i].version_group_details.length; j++) {
+          const versionDetailInfo = pokemon.moves[i].version_group_details[j];
+          const versionGroup = versionDetailInfo.version_group;
+          const moveLearnMethod = versionDetailInfo.move_learn_method;
+          if (versionGroup.name === 'black-white' && (['level-up'].includes(moveLearnMethod.name))) {
+            filtered.push({
+              skill: pokemon.moves[i].move,
+              info: versionDetailInfo,
+            });
+
+            break;
+          }
+        }
+      }
+
+      const sorted = filtered.sort((a, b) => {
+        if (a.info.level_learned_at >= b.info.level_learned_at) {
+          return 1;
+        }
+
+        if (a.info.level_learned_at < b.info.level_learned_at) {
+          return -1;
+        }
+      });
+
+      isLoadingSkillBox = false;
+      skills = sorted;
+      console.log(skills);
+    }
+  }
+
   async function getAbilityContent(url) {
     try {
       const response = await fetch(url);
       // pokemon = await response.json();
       console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function getSkillContent(url) {
+    try {
+      const response = await fetch(url);
+      // pokemon = await response.json();
+      console.log(await response.json());
     } catch (e) {
       console.log(e);
     }
@@ -155,10 +203,22 @@
       </div>
     {/each}
   </div>
+  <div class="pokemon-skills">
+    <div class="title">Skill</div>
+    {#if isLoadingSkillBox}
+      <Icon class="animate-spin text-blue-600 block" data={faSpinner} scale="2" />
+    {:else}
+      {#each skills as value}
+        <div class="skill-name" on:click={(e) => getSkillContent(value.skill.url)}>{value.info.level_learned_at} : {value.skill.name}</div>
+      {/each}
+    {/if}
+  </div>
 </section>
 
 <style type="text/scss">
   section {
+    margin-left: 100px;
+
     .title {
       font-size: 1.3rem;
       font-weight: bold;
@@ -266,6 +326,18 @@
     }
 
     .ability-name {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .pokemon-skills {
+    .title {
+      margin-top: 50px;
+    }
+
+    .skill-name {
       &:hover {
         cursor: pointer;
       }

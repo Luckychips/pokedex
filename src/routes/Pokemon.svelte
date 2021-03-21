@@ -28,7 +28,7 @@
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
         pokemon = await response.json();
-        console.log(pokemon);
+        // console.log(pokemon);
       } catch (e) {
         console.log(e);
       }
