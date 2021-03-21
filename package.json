@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "apexcharts": "^3.26.0",
     "node-sass": "^5.0.0",
     "sass": "^1.32.8",
     "sirv-cli": "^1.0.0",
