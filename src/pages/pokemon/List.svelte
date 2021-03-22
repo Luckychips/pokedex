@@ -1,7 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import DetailPokemon from '../components/DetailPokemon.svelte';
-  import LoadingIndicator from '../components/LoadingIndicator.svelte';
+  import DetailPokemon from './Detail.svelte';
+  import LoadingIndicator from '../../components/LoadingIndicator.svelte';
+
+  export let params = {};
 
   let pokemons = [];
   let pokemon = null;
@@ -19,7 +21,11 @@
   });
 
   onMount(async () => {
-    await getPokemon('1');
+    if (params.id) {
+      await getPokemon(params.id);
+    } else {
+      await getPokemon('1');
+    }
   });
 
   async function getPokemon(name) {

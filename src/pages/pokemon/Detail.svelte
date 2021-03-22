@@ -3,7 +3,7 @@
   import ApexCharts from 'apexcharts';
   import Icon from 'svelte-awesome';
   import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-  import PopUp from '../components/PopUp.svelte';
+  import PopUp from '../../components/PopUp.svelte';
 
   export let pokemon;
 
@@ -109,7 +109,7 @@
           const versionDetailInfo = pokemon.moves[i].version_group_details[j];
           const versionGroup = versionDetailInfo.version_group;
           const moveLearnMethod = versionDetailInfo.move_learn_method;
-          if (versionGroup.name === 'black-white' && (['level-up'].includes(moveLearnMethod.name))) {
+          if (versionGroup.name === 'black-white' && ['level-up'].includes(moveLearnMethod.name)) {
             filtered.push({
               skill: pokemon.moves[i].move,
               info: versionDetailInfo,
@@ -217,10 +217,10 @@
     {:else}
       <table class="skill-table-set table-auto">
         <thead>
-        <tr>
-          <th class="w-1/4">-</th>
-          <th class="w-3/4">-</th>
-        </tr>
+          <tr>
+            <th class="w-1/4">-</th>
+            <th class="w-3/4">-</th>
+          </tr>
         </thead>
         <tbody>
           {#each skills as value}
