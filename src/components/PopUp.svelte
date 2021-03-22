@@ -1,7 +1,8 @@
 <script>
+  export let dismiss;
 </script>
 
-<figure class="popup-view">
+<figure class="popup-view" on:click={(e) => dismiss()}>
   <div>hello world</div>
 </figure>
 
@@ -23,6 +24,9 @@
       background-color: white;
       width: 70%;
       height: 70%;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 10px 10px 35px grey;
     }
   }
 </style>

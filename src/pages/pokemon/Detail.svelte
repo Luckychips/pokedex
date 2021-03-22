@@ -161,7 +161,7 @@
 
 <section class="">
   {#if !isHidePopUp}
-    <PopUp />
+    <PopUp dismiss={() => isHidePopUp = !isHidePopUp} />
   {/if}
   <div class="pokemon-profile-header">
     <div class="thumbnail-downloading border-double border-4 border-green-600 rounded-xl">
