@@ -5,7 +5,6 @@
 
 <header class="bg-blue-600">
   <a href="/pokemons" use:link use:active> Pokemons </a>
-  <a href="/moves" use:link use:active> Moves </a>
   <a href="/machines" use:link use:active> Machines </a>
   <a href="/berries" use:link use:active> Berries </a>
   <a href="/items" use:link use:active> Items </a>

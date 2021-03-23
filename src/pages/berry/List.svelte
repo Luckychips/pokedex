@@ -1,19 +1,19 @@
 <script>
   import { onMount } from 'svelte';
-  import DetailPokemon from './Detail.svelte';
+  import DetailBerry from './Detail.svelte';
   import LoadingIndicator from '../../components/LoadingIndicator.svelte';
 
   export let params = {};
 
-  let pokemons = [];
-  let pokemon = null;
+  let berries = [];
+  let berry = null;
 
   onMount(async () => {
     try {
-      const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1118');
+      const response = await fetch('https://pokeapi.co/api/v2/berry?limit=64');
       const json = await response.json();
       if (json.hasOwnProperty('results')) {
-        pokemons = json.results;
+        berries = json.results;
       }
     } catch (e) {
       console.log(e);
@@ -22,19 +22,18 @@
 
   onMount(async () => {
     if (params.id) {
-      await getPokemon(params.id);
+      await getBerry(params.id);
     } else {
-      await getPokemon('1');
+      await getBerry('1');
     }
   });
 
-  async function getPokemon(name) {
-    pokemon = null;
+  async function getBerry(name) {
+    berry = null;
     setTimeout(async () => {
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-        pokemon = await response.json();
-        // console.log(pokemon);
+        const response = await fetch(`https://pokeapi.co/api/v2/berry/${name}`);
+        berry = await response.json();
       } catch (e) {
         console.log(e);
       }
@@ -56,16 +55,16 @@
 <main class="container flex">
   <div class="side-bar overflow-y-scroll">
     <ul>
-      {#each pokemons as pokemon, i}
-        <li on:click={(e) => getPokemon(pokemon.name)}>
-          <label>{getNumberFromDex(i + 1)} {pokemon.name}</label>
+      {#each berries as berry, i}
+        <li on:click={(e) => getBerry(berry.name)}>
+          <label>{getNumberFromDex(i + 1)} {berry.name}</label>
         </li>
       {/each}
     </ul>
   </div>
   <div class="content">
-    {#if pokemon}
-      <DetailPokemon {pokemon} />
+    {#if berry}
+      <DetailBerry {berry} />
     {:else}
       <LoadingIndicator />
     {/if}
