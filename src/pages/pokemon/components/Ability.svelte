@@ -1,7 +1,9 @@
 <script>
   export let pokemon;
+  export let openPopup;
 
   async function getAbilityContent(url) {
+    openPopup();
     try {
       const response = await fetch(url);
       // pokemon = await response.json();

@@ -1,7 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
-  import Icon from 'svelte-awesome';
-  import { faSpinner } from '@fortawesome/free-solid-svg-icons';
   import PokemonProfile from './components/Profile.svelte';
   import PokemonType from './components/Type.svelte';
   import BaseStatChart from './components/BaseStat.svelte';
@@ -12,6 +9,9 @@
   export let pokemon;
 
   let isHidePopUp = true;
+  function openPopup() {
+    isHidePopUp = false;
+  }
 </script>
 
 <section class="">
@@ -21,8 +21,8 @@
   <PokemonProfile {pokemon} />
   <PokemonType {pokemon} />
   <BaseStatChart {pokemon} />
-  <PokemonAbility {pokemon} />
-  <PokemonSkill {pokemon} />
+  <PokemonAbility {pokemon} {openPopup} />
+  <PokemonSkill {pokemon} {openPopup} />
 </section>
 
 <style type="text/scss">
