@@ -143,21 +143,21 @@
         <nav>
           {#each generations as value, index}
             <div class="generation-row">
-            <span>
-              <button
-                      class={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
-                  index === generationIndex ? 'text-blue-500 font-medium border-blue-500' : ''
-                }`}
-                      on:click={(e) => createLevelMoves(index, value.originGameVersions)}
-              >
-                {value.name}
-              </button>
-            </span>
               <span>
-              {#each value.gameVersions as game}
-                <span class={`game-version-tag ${game}`}>{game}</span>
-              {/each}
-            </span>
+                <button
+                  class={`text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none ${
+                    index === generationIndex ? 'text-blue-500 font-medium border-blue-500' : ''
+                  }`}
+                  on:click={(e) => createLevelMoves(index, value.originGameVersions)}
+                >
+                  {value.name}
+                </button>
+              </span>
+              <span>
+                {#each value.gameVersions as game}
+                  <span class={`game-version-tag ${game}`}>{game}</span>
+                {/each}
+              </span>
             </div>
           {/each}
         </nav>
@@ -165,18 +165,22 @@
       {#if skills.length > 0}
         <table class="skill-table-set table-auto">
           <thead>
-          <tr>
-            <th class="w-1/4">LV</th>
-            <th class="w-3/4">Skill</th>
-          </tr>
+            <tr>
+              <th class="w-1/4">LV</th>
+              <th class="w-3/4">Skill</th>
+            </tr>
           </thead>
           <tbody>
-          {#each skills as value}
-            <tr class="skill-name" on:click={(e) => getSkillContent(value.skill.url)}>
-              <td class="text-center">{value.info.level_learned_at < 10 ? `0${value.info.level_learned_at}` : value.info.level_learned_at}</td>
-              <td class="pl-2">{value.skill.name}</td>
-            </tr>
-          {/each}
+            {#each skills as value}
+              <tr class="skill-name" on:click={(e) => getSkillContent(value.skill.url)}>
+                <td class="text-center"
+                  >{value.info.level_learned_at < 10
+                    ? `0${value.info.level_learned_at}`
+                    : value.info.level_learned_at}</td
+                >
+                <td class="pl-2">{value.skill.name}</td>
+              </tr>
+            {/each}
           </tbody>
         </table>
       {/if}
@@ -214,63 +218,63 @@
         margin: 0 5px;
 
         &.red {
-          border-color: #FF1111;
+          border-color: #ff1111;
         }
 
         &.blue {
-          border-color: #1111FF;
+          border-color: #1111ff;
         }
 
         &.yellow {
-          border-color: #FFD733;
+          border-color: #ffd733;
         }
 
         &.gold {
-          border-color: #DAA520;
+          border-color: #daa520;
         }
 
         &.silver {
-          border-color: #C0C0C0;
+          border-color: #c0c0c0;
         }
 
         &.crystal {
-          border-color: #4FD9FF;
+          border-color: #4fd9ff;
         }
 
         &.ruby {
-          border-color: #A00000;
+          border-color: #a00000;
         }
 
         &.sapphire {
-          border-color: #0000A0;
+          border-color: #0000a0;
         }
 
         &.emerald {
-          border-color: #00A000;
+          border-color: #00a000;
         }
 
         &.firered {
-          border-color: #FF7327;
+          border-color: #ff7327;
         }
 
         &.leafgreen {
-          border-color: #00DD00;
+          border-color: #00dd00;
         }
 
         &.colosseum {
-          border-color: #B6CAE4;
+          border-color: #b6cae4;
         }
 
         &.xd {
-          border-color: #604E82;
+          border-color: #604e82;
         }
 
         &.diamond {
-          border-color: #AAAAFF;
+          border-color: #aaaaff;
         }
 
         &.pearl {
-          border-color: #FFAAAA;
+          border-color: #ffaaaa;
         }
 
         &.platinum {
@@ -278,11 +282,11 @@
         }
 
         &.heartgold {
-          border-color: #B69E00;
+          border-color: #b69e00;
         }
 
         &.soulsilver {
-          border-color: #C0C0E1;
+          border-color: #c0c0e1;
         }
 
         &.black {
@@ -290,59 +294,59 @@
         }
 
         &.white {
-          border-color: #E1E1E1;
+          border-color: #e1e1e1;
         }
 
         &.black2 {
-          border-color: #424B50;
+          border-color: #424b50;
         }
 
         &.white2 {
-          border-color: #E3CED0;
+          border-color: #e3ced0;
         }
 
         &.x {
-          border-color: #025DA6;
+          border-color: #025da6;
         }
 
         &.y {
-          border-color: #EA1A3E;
+          border-color: #ea1a3e;
         }
 
         &.omegaruby {
-          border-color: #AB2813;
+          border-color: #ab2813;
         }
 
         &.alphasapphire {
-          border-color: #26649C;
+          border-color: #26649c;
         }
 
         &.sun {
-          border-color: #F1912B;
+          border-color: #f1912b;
         }
 
         &.moon {
-          border-color: #5599CA;
+          border-color: #5599ca;
         }
 
         &.ultrasun {
-          border-color: #E95B2B;
+          border-color: #e95b2b;
         }
 
         &.ultramoon {
-          border-color: #226DB5;
+          border-color: #226db5;
         }
 
         &.letsgo {
-          border-color: #D4924B;
+          border-color: #d4924b;
         }
 
         &.sword {
-          border-color: #004EA2;
+          border-color: #004ea2;
         }
 
         &.shield {
-          border-color: #B60007;
+          border-color: #b60007;
         }
       }
     }
